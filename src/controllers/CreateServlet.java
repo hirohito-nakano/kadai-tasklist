@@ -36,21 +36,23 @@ public class CreateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Task m = new Task();
+            Task t = new Task();
 
             String title = request.getParameter("title");
-            m.setTitle(title);
+            t.setTitle(title);
 
             String content = request.getParameter("content");
-            m.setContent(content);
+            t.setContent(content);
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            m.setCreated_at(currentTime);
-            m.setUpdated_at(currentTime);
+            t.setCreated_at(currentTime);
+            t.setUpdated_at(currentTime);
 
+            //データベースに保存
             em.getTransaction().begin();
-            em.persist(m);
+            em.persist(t);
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "登録が完了しました。");
             em.close();
 
             response.sendRedirect(request.getContextPath() + "/index");
