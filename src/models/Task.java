@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 @Entity
 @NamedQueries({
     @NamedQuery(
-            name = "getAllTasks",
+            name = "getAllMessages",
             query = "SELECT m FROM Task AS m ORDER BY m.id DESC"
             ),
     @NamedQuery(
@@ -27,7 +28,6 @@ public class Task {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "content", length = 255, nullable = false)
     private String content;
 
